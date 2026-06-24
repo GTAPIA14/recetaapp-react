@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+import listaRecetas from './listaRecetas'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -31,6 +32,26 @@ function App() {
       </section>
 
       <div className="ticks"></div>
+
+      <section id="recetas">
+        <h2>Recetas</h2>
+        <div className="lista-recetas">
+          {listaRecetas && listaRecetas.length > 0 ? (
+            listaRecetas.map((receta: any, idx: number) => (
+              <article key={idx} className="receta">
+                <h3>{receta.title ?? receta.nombre ?? `Receta ${idx + 1}`}</h3>
+                {receta.description && <p>{receta.description}</p>}
+                {!receta.description && receta.ingredients && (
+                  <pre>{JSON.stringify(receta.ingredients, null, 2)}</pre>
+                )}
+              </article>
+            ))
+          ) : (
+            <p>No hay recetas para mostrar.</p>
+          )}
+        </div>
+      </section>
+
 
       <section id="next-steps">
         <div id="docs">
